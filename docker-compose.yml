@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  dockerapi:
+    image: ${DOCKER_REGISTRY-}dockerapi
+    build:
+      context: .
+      dockerfile: DockerAPI/Dockerfile
+    depends_on:
+      - sql.data
+  
+  sql.data:
+      image: "mcr.microsoft.com/mssql/server"
+      environment:
+          -  SA_PASSWORD="SikkerKode123"
+          -  ACCEPT_EULA="Y"
+      ports:
+        - "5433:1433"
